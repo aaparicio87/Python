@@ -1,0 +1,66 @@
+{% extends "main.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block body %}
+<div class="row justify-content-md-center register">
+    <div class="card-wrapper">
+        <div class="card fat">
+            <div class="card-body">
+                <h4 class="card-title">Login</h4>
+                <form method="POST" class="my-login-validation" novalidate="" autocomplete="off">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.email.email_register }}">E-Mail Address</label>
+                        {{ form.email|add_class:"form-control"|attr:"required"|attr:"placeholder:Enter your email address"|attr:"id:email_register"}}
+                        <small class="text-danger">
+                            {{ form.errors.email }}
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.passowrd.password_login }}">Password</label>
+                        {{ form.password|add_class:"form-control"|attr:"required"|attr:"placeholder:Enter your password"|attr:"id:passowrd_login"|attr:"type:password"}}
+                        <small class="text-danger">
+                            {{ form.errors.password }}
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="custom-checkbox custom-control">
+                            <input type="checkbox" name="remember" id="remember" class="custom-control-input">
+                            <label for="remember" class="custom-control-label">Remember Me</label>
+                            <a href="{% url 'forgot' %}" class="float-right">
+                            Forgot Password?
+                            </a>
+                        </div>
+                    </div>
+
+                {% for field in form %}
+				<p>
+				{% for error in field.errors %}
+				<p style="color: red">{{ error }}</p>
+				{% endfor %}
+				</p>
+				{% endfor %}
+				{% if form.non_field_errors %}
+				<div style="color: red">
+				<p>{{form.non_field_errors}}</p>
+				</div>
+
+				{% endif %}
+
+                    <div class="form-group m-0">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Log in
+                        </button>
+                    </div>
+                    <div class="mt-4 text-center">
+                        Don't have an account? <a href="{% url 'register' %}">Create One</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

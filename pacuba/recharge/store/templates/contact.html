@@ -1,0 +1,66 @@
+{% extends "main.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block body %}
+<div class="row justify-content-md-center register">
+    <div class="card-wrapper">
+        <div class="card fat">
+            <div class="card-body">
+                <h4 class="card-title">Contacta con nosotros</h4>
+                <form method="POST" novalidate="" autocomplete="off">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.name.name }}">Nombre</label>
+                        {{ form.name|add_class:"form-control"|attr:"required"|attr:"placeholder:Nombre completo"|attr:"id:name"}}
+                        <small class="text-danger">
+                            {{ form.errors.name }}
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.email.email }}">E-Mail</label>
+                        {{ form.email|add_class:"form-control"|attr:"required"|attr:"placeholder:Direccion de correo"|attr:"id:email"}}
+                        <small class="text-danger">
+                            {{ form.errors.email }}
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.subject.subject }}">Asunto</label>
+                        {{ form.subject|add_class:"form-control"|attr:"required"|attr:"placeholder:Asunto"|attr:"id:subject"}}
+                        <small class="text-danger">
+                            {{ form.errors.subject }}
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.mensaje.mensaje }}">E-Mail Address</label>
+                        {{ form.mensaje|add_class:"form-control"|attr:"required"|attr:"placeholder:Haga su comentario ..."|attr:"id:mensaje"}}
+                        <small class="text-danger">
+                            {{ form.errors.mensaje }}
+                        </small>
+                    </div>
+                        {% for field in form %}
+                        <p>
+                        {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                        </p>
+                        {% endfor %}
+                        {% if form.non_field_errors %}
+                        <div style="color: red">
+                        <p>{{form.non_field_errors}}</p>
+                        </div>
+                        {% endif %}
+                    <div class="form-group m-0">
+                        <button type="submit" class="btn btn-primary">
+                            Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

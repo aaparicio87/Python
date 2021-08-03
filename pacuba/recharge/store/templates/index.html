@@ -1,0 +1,171 @@
+{% extends "main.html" %}
+{% load static %}
+{% block body %}
+<div class="row banner">
+    <div class="col-sm-12 d-flex align-items-center ">
+        <div class=" col-sm-7 text-right ml-5">
+            <h1 class=" ml-5 mb-2 text-white text-right">¡Recargas Pa'Cuba!</h1>
+        </div>
+    </div>
+</div>
+{% if request.user.is_authenticated %}
+
+    <div class="row">
+        <div class="card col-12  border-0 text-center">
+            <div class="card-body col-md-8 col-lg-8 col-sm-8 align-item-sm-center align-item-md-center justify-content-xl-center justify-content-lg-center justify-content-xs-center mx-auto">
+                    <h5>Seleccione el operador para realizar la recarga</h5>
+                    <br>
+                    <div class="operator_list">
+                        <section class="operator" id="cubacel">
+                            <li>
+                                <img class="operator_img" src="{% static 'img/cubacel-logo.png' %}">  
+                            </li>
+                        </section>
+                        <section class="operator" id="nauta">
+                            <li>
+                                <img class="operator_img" src="{% static 'img/nauta-logo.png' %}">
+                            </li>
+                        </section>       
+                    </div>
+                    <div class="tab-content pt-3" id="myTabRecharges">
+                        <!-- Recharge cellphone tab-content -->
+                        <div class="tab-pane " id="tab_cellphone">
+                            <div class="input-group mt-2 align-items-start">
+                        
+                                <div class="input-group-prepend">
+                                <span class="input-group-text ali px-0" id="basic-addon1">
+                                    <img src="{% static 'img/cuban_flag.svg' %}" width="36px" height="24px" class="mx-1">
+                                    <span class="px-1">
+                                        +53 
+                                    </span>
+                                </span>
+                                </div>
+                                <input type="text" name="cellphone" id="cellphone" class="form-control" placeholder="Por favor ingrese el número de celular: 5XXXXXXX " aria-label="Cellphone" aria-describedby="basic-addon1" autocomplete="off" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" maxlength="8">
+                            </div>
+                        </div>
+                        <!-- Recharge nauta tab-content -->
+                        <div class="tab-pane" id="tab_nauta" > 
+                            <div class="input-group mt-1 align-items-start">
+                        
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text ali px-0" id="basic-addon1">
+                                        <img src="{% static 'img/cuban_flag.svg' %}" width="36px" height="24px" class="mx-1">
+                                        <i class="fa fa-wifi">
+                                        </i>
+                                    </span>
+                                </div>
+                                <input type="email" name="nauta" id="nauta" class="form-control" placeholder="Por favor ingrese direccion nauta: jhon.doe@nauta.com.cu" aria-label="Nauta" aria-describedby="basic-addon1" autocomplete="off">
+                            </div>
+                        </div>
+                        <p class="option-error align-self-start" style="text-align: start;"></p>
+                    <div>
+                        
+                    <div class="row text-center pt-3 pl-0 " id="offerts">
+                                       
+                    </div>
+                    <div class="tab-content pt-3" id="myTabSubmit">
+                        <div class="tab-pane align-content-center" id="tab_submit">
+                            <div class="d-flex  mt-2 justify-content-center">
+                                <button type="button" class="btn btn-primary btn-modal" data-toggle="modal" data-target="#rechargeModal">Continuar</button> 
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="rechargeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form action="recharge/" method="POST">
+            {% csrf_token %}
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Orden de Compra</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group col-md-10 row">
+                            <label for="benef" id="lb_benef"></label>
+                            <input type="text" class="form-control" id="benef" name="benef" readonly>
+                        </div>
+                        <div class="form-group col-md-10 row">
+                            <label for="cant_cup">Recibe</label>
+                            <input type="text" class="form-control" id="cant_cup" name="cant_cup" readonly>
+                        </div>
+                        <div class="form-group col-md-10 row">
+                            <label for="cant_euro">Cantidad a Pagar</label>
+                            <input type="text" class="form-control" id="cant_euro" name="cant_euro" readonly>
+                        </div>
+                        <div class="form-group col-md-10 row pb-0">
+                           <label>Seleccione forma de pago</label>
+                        </div>
+                        <div class="form-group col-md-10 row">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="payment_radio" value="paypal"><img class="payment_img pb-2" src="{% static 'img/paypal-logo.svg' %}">
+                                </label>
+                        
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="payment_radio" value="credit_card"><img class="payment_img pb-3" src="{% static 'img/generic.svg' %}">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Continuar con el Pago</button>
+                    </div>
+                    <input type="text" name="oculto" hidden>
+                    <input type="text" name="oculto1" hidden>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endif %}
+<div class="container pt-0 pb-5">
+        <div class="row text-center align-items-stretch">
+            <div class="col-lg-3 mb-3 mb-lg-0">
+                <div class="card reset-anchor border-0 shadow h-100 hover-transition">
+                    <div class="card-body">
+                    <img class="section_img" src="{% static 'img/economic_icon.svg' %}" alt="Economic">
+                    <h3 class="h5 mt-3"> Economic</h3>
+                    <p class="text-gray-900 text-muted mb-0 mt-3">We have good offers and different payment options</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 mb-3 mb-lg-0">
+                <div class="card reset-anchor border-0 shadow h-100 hover-transition">
+                    <div class="card-body">
+                    <img class="section_img" src="{% static 'img/secure_icon.svg' %}" alt="Secure">
+                    <h3 class="h5 mt-3"> Secure</h3>
+                    <p class="text-gray-900 text-muted mb-0 mt-3">Very secure, you need to be authenticated to send recharges.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card reset-anchor border-0 shadow h-100 hover-transition">
+                    <div class="card-body ">
+                    <img class="section_img" src="{% static 'img/simple_icon.svg' %}" alt="Simple">
+                    <h3 class="h5 mt-3"> Simple!</h3>
+                    <p class="text-gray-900 text-muted mb-0 mt-3">Enter a phone number or Nauta account, choose the offer and you're done</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card reset-anchor border-0 shadow h-100 hover-transition">
+                    <div class="card-body ">
+                    <img class="section_img" src="{% static 'img/fast_icon.svg' %}" alt="Fast">
+                    <h3 class="h5 mt-3"> Fast!</h3>
+                    <p class="text-gray-900 text-muted mb-0 mt-3">Your recharge is sent almost instantly and the recipient can enjoy the credit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}
+
+    

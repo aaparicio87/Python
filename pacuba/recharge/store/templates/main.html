@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Pa'Cuba</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/store.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome/css/all.css' %}">
+</head>
+<body>
+    <div class="container-fluid">
+        {% include 'navbar.html' %}
+        {% block body %}{% endblock %} 
+        {% include 'footer.html' %}
+        <script src="{% static 'js/jquery-3.5.1.slim.min.js' %}"></script>
+        <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.min.js.map' %}"></script>
+        <script src="{% static 'js/my-login.js' %}"></script>
+        <script src="{% static 'js/tab-selection.js' %}"></script>
+    </div>
+</body>
+</html>

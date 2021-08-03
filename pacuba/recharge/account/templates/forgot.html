@@ -1,0 +1,31 @@
+{% extends "main.html" %}
+{% load static %}
+{% block body %}
+<div class="row justify-content-md-center forgot">
+        <div class="card-wrapper">
+            <div class="card fat">
+                <div class="card-body">
+                    <h4 class="card-title">Forgot Password</h4>
+                    <form method="POST" class="my-login-validation" novalidate="">
+                        <div class="form-group">
+                            <label for="email_reset">E-Mail Address</label>
+                            <input id="email_reset" type="email" class="form-control" name="email_reset" value="" placeholder="Enter your email address" required autofocus>
+                            <div class="invalid-feedback">
+                                Email is invalid
+                            </div>
+                            <div class="form-text text-muted">
+                                By clicking "Reset Password" we will send a password reset link
+                            </div>
+                        </div>
+
+                        <div class="form-group m-0">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Reset Password
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

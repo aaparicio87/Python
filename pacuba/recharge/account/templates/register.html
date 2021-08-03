@@ -1,0 +1,68 @@
+{% extends "main.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block body %}
+<div class="row justify-content-md-center register">
+    <div class="card-wrapper">
+        <div class="card fat">
+            <div class="card-body">
+                <h4 class="card-title">Register</h4>
+                <form method="POST" class="my-login-validation" novalidate="" autocomplete="off">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.email.email_register }}">E-Mail Address</label>
+                        {{ form.email|add_class:"form-control"|attr:"required"|attr:"placeholder:Enter your email address"|attr:"id:email_register"}}
+                        <small class="text-danger">
+                            {{ form.errors.email }}
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.passowrd1.password1_register }}">Password</label>
+                        {{ form.password1|add_class:"form-control"|attr:"required"|attr:"placeholder:Enter your password"|attr:"id:passowrd1_register"|attr:"type:password"}}
+                        <small class="text-danger">
+                            {{ form.errors.password1 }}
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.passowrd2.password2_register }}">Password</label>
+                        {{ form.password2|add_class:"form-control"|attr:"required"|attr:"placeholder:Repeat your password"|attr:"id:passowrd2_register"|attr:"type:password"}}
+                        <small class="text-danger">
+                            {{ form.errors.password2 }}
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="custom-checkbox custom-control">
+                            <input type="checkbox" name="agree" id="agree" class="custom-control-input" required="">
+                            <label for="agree" class="custom-control-label">I agree to the <a href="{% url 'terms' %}">Terms and Conditions</a></label>
+                            <div class="invalid-feedback">
+                                You must agree with our Terms and Conditions
+                            </div>
+                        </div>
+                    </div>
+                        {% for field in form %}
+                        <p>
+                        {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                        </p>
+                        {% endfor %}
+                        {% if form.non_field_errors %}
+                        <div style="color: red">
+                        <p>{{form.non_field_errors}}</p>
+                        </div>
+                        {% endif %}
+                    <div class="form-group m-0">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

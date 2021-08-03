@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+{% load static %}
+{% block body %}
+<div class="container">
+<div class="row justify-content-md-center send_confirm">
+    <div class="col-lg-7 mx-auto text-center">
+      <img class="send_mail_img" src="{% static 'img/mail-send.svg' %}" alt="Email">
+        <h1 class="mb-5">We have sent you an email, please confirm your email address to complete registration.</h1>
+      </div>
+</div>
+</div>
+{% endblock %}
